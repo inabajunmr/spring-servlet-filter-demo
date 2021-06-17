@@ -25,17 +25,17 @@ public class SampleFilter1 implements Filter {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(SampleController.class);
 
-@Override
-public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-    final String filter1 = servletRequest.getParameter("filter1");
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        final String filter1 = servletRequest.getParameter("filter1");
 
-    if(filter1 != null && filter1.length() != 0) {
-        LOGGER.info("SampleFilter1 BEFORE");
-        service.execute();
-        filterChain.doFilter(servletRequest, servletResponse);
-        LOGGER.info("SampleFilter1 AFTER");
-    } else {
-        filterChain.doFilter(servletRequest, servletResponse);
+        if (filter1 != null && filter1.length() != 0) {
+            LOGGER.info("SampleFilter1 BEFORE");
+            service.execute();
+            filterChain.doFilter(servletRequest, servletResponse);
+            LOGGER.info("SampleFilter1 AFTER");
+        } else {
+            filterChain.doFilter(servletRequest, servletResponse);
+        }
     }
-}
 }
