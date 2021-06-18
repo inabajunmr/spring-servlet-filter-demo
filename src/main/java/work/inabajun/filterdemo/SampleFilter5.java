@@ -22,18 +22,23 @@ public class SampleFilter5 extends OncePerRequestFilter {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(SampleFilter5.class);
 
-@Override
-protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-    final String filter5 = httpServletRequest.getParameter("filter5");
+    @Override
+    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+        final String filter5 = httpServletRequest.getParameter("filter5");
 
-    if(filter5 != null && filter5.length() != 0) {
-        LOGGER.info("SampleFilter5");
-        ServletServerHttpResponse httpResponse = new ServletServerHttpResponse(httpServletResponse);
-        httpResponse.setStatusCode(HttpStatus.OK);
-        httpResponse.getBody().write("SampleFilter5".getBytes(StandardCharsets.UTF_8));
-        httpResponse.flush();
-    } else {
-        filterChain.doFilter(httpServletRequest, httpServletResponse);
+        if(filter5 != null && filter5.length() != 0) {
+            LOGGER.info("SampleFilter5");
+            ServletServerHttpResponse httpResponse = new ServletServerHttpResponse(httpServletResponse);
+            httpResponse.setStatusCode(HttpStatus.OK);
+            httpResponse.getBody().write("SampleFilter5".getBytes(StandardCharsets.UTF_8));
+            httpResponse.flush();
+        } else {
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
+        }
     }
-}
+
+    @Override
+    protected boolean shouldNotFilterErrorDispatch() {
+        return super.shouldNotFilterErrorDispatch();
+    }
 }
